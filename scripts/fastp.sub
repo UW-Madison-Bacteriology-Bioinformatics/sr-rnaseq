@@ -1,0 +1,27 @@
+# HTCondor submit file that uses a container
+
+container_image = docker://staphb/fastp:0.24.1
+
+executable = fastp.sh
+
+## CHANGE THIS ##
+staging = /staging/ptran5/MyProject
+
+arguments = $(sample) $(staging)
+
+# transfer_input_files = 
+transfer_output_files = $(sample).R1.fastp.fastq.gz, $(sample).R2.fastp.fastq.gz
+transfer_output_remaps = "$(sample).R1.fastp.fastq.gz=file://$(staging)/ouput/fastp/$(sample).R1.fastp.fastq.gz ; $(sample).R2.fastp.fastq.gz=file://$(staging)/ouput/fastp/$(sample).R2.fastp.fastq.gz"
+
+log = logs/fastp_$(sample).log
+error = logs/fastp_$(sample).err
+output = logs/fastp_$(sample).out
+
+requirements = (HasCHTCStaging == true) && (OpSysMajorVer > 7) && (HasChtcProjects == true)
+
+# Make sure you request enough disk for the container image in addition to your other input files
+request_cpus = 4
+request_memory = 4GB
+request_disk = 10GB      
+
+queue sample from samples.txt

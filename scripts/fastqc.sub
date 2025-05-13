@@ -1,0 +1,27 @@
+# HTCondor submit file that uses a container
+
+container_image = docker://staphb/fastqc:0.12.1
+
+executable = fastqc.sh
+
+## CHANGE THIS ##
+staging = /staging/ptran5/MyProject
+
+arguments = $(read) $(staging)
+
+# transfer_input_files
+# transfer_output_files
+# transfer_ouput_remaps
+
+log = logs/fastqc_$(read).log
+error = logs/fastqc_$(read).err
+output = logs/fastqc_$(read).out
+
+requirements = (HasCHTCStaging == true) && (OpSysMajorVer > 7) && (HasChtcProjects == true)
+
+# Make sure you request enough disk for the container image in addition to your other input files
+request_cpus = 4
+request_memory = 4GB
+request_disk = 10GB      
+
+queue read from reads.txt
