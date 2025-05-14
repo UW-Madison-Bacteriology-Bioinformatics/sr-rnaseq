@@ -1,0 +1,27 @@
+container_image = docker://staphb/samtools:1.21
+
+arguments = $(sample) $(ref) $(request_cpus)
+
+## CHANGE THIS ##
+staging = /staging/ptran5/MyProject
+ref = MRSA_MW2
+#################
+
+
+executable = bowtie2.sh
+
+log = logs/samtools_$(sample)_vs_$(ref).log
+error = logs/samtools_$(sample)_vs_$(ref).err
+output = logs/samtools_$(sample)_vs_$(ref).out
+
+transfer_input_files = file://$(staging)/output/bowtie2/$(sample)_vs_$(ref).sam
+transfer_output_files = $(sample)_vs_$(ref).sorted.bam
+transfer_output_remaps = "$(sample)_vs_$(ref).sorted.bam=file://$(staging)/bowtie2/$(sample)_vs_$(ref).sorted.bam"
+
+requirements = (HasCHTCStaging == true)
+
+request_cpus = 8
+request_memory = 32GB
+request_disk = 50GB      
+
+queue sample from samples.txt

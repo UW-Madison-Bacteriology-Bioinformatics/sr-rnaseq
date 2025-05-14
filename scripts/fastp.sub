@@ -11,7 +11,7 @@ arguments = $(sample) $(staging)
 
 # transfer_input_files = 
 transfer_output_files = $(sample).R1.fastp.fastq.gz, $(sample).R2.fastp.fastq.gz
-transfer_output_remaps = "$(sample).R1.fastp.fastq.gz=file://$(staging)/ouput/fastp/$(sample).R1.fastp.fastq.gz ; $(sample).R2.fastp.fastq.gz=file://$(staging)/ouput/fastp/$(sample).R2.fastp.fastq.gz"
+transfer_output_remaps = "$(sample).R1.fastp.fastq.gz=file://$(staging)/output/fastp/$(sample).R1.fastp.fastq.gz ; $(sample).R2.fastp.fastq.gz=file://$(staging)/output/fastp/$(sample).R2.fastp.fastq.gz"
 
 log = logs/fastp_$(sample).log
 error = logs/fastp_$(sample).err

@@ -1,0 +1,27 @@
+container_image = docker://staphb/bowtie2:2.5.4
+
+arguments = $(sample) $(ref) $(request_cpus)
+
+## CHANGE THIS ##
+staging = /staging/ptran5/MyProject
+ref = MRSA_MW2
+#################
+
+
+executable = bowtie2.sh
+
+log = logs/mapping_$(sample)_vs_$(ref).log
+error = logs/mapping_$(sample)_vs_$(ref).err
+output = logs/mapping_$(sample)_vs_$(ref).out
+
+transfer_input_files = file://$(staging)/output/fastp/$(sample).R1.fastp.fastq.gz, file://$(staging)/output/fastp/$(sample).R2.fastp.fastq.gz, file://$(staging)/input/$(ref)_assembly.fasta
+transfer_output_files = $(sample)_vs_$(ref).sam
+transfer_output_remaps = "$(sample)_vs_$(ref).sam=file://$(staging)/output/bowtie2/$(sample)_vs_$(ref).sam"
+
+requirements = (HasCHTCStaging == true)
+
+request_cpus = 8
+request_memory = 32GB
+request_disk = 100GB      
+
+queue sample from samples.txt
