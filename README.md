@@ -30,7 +30,7 @@ If you have fewer than 3 replicates, you can still process the data up to the po
 
 # 🔁 Recreate this workflow
 
-**Download a copy of the code**
+**1. Download a copy of the code**
 
 ```
 ssh username@ap2002.chtc.wisc.edu
@@ -41,7 +41,7 @@ cd sr-rnaseq
 chmod +x scripts/*.sh
 ```
 
-**Create the folder structure**
+**2. Create the folder structure**
 A helper scrip is present to help you organize your input and output files
 
 >![WARNING]
@@ -51,13 +51,16 @@ A helper scrip is present to help you organize your input and output files
 bash scripts/pre-processing.sh
 ```
 
-**Organize your files**
+**3. Organize your files**
 
 Move your fastq reads (2 for each samples, labelled sample_R{1 or 2}_001.fastq.gz
 Also move your reference genome assembly (named reference_assembly.fasta) here.
 
-**Prepare your list of reads, and your list of samples**
-
+**4. Prepare your list of reads, and your list of samples**
+You will need 2 files overall for the `queue` statement of these scripts.
+The first file, `reads.txt` is a file with 1 fastq file per line.
+The second file, `samples.txt` is similar, but contains 1 sample name per line.
+You will have twice as many lines in the `reads.txt` compared to the `samples.txt` file because the reads file contains both forward and reverse reads for each sample.
 Create a list of reads:
 
 ```
@@ -65,22 +68,24 @@ cd /staging/$LOGNAME/$PROJECTNAME/input
 # this mean list the files, then replace everything before the space with nothin, and then replace the _R1/2_fastq.gz part of the name with nothing.
 ls -lht | grep '.fastq.gz' | sed 's|.* ||g' > reads.txt
 mv reads.txt ~/sr-rnaseq/scripts/.
+grep 'R1_001.fastq.gz' reads.txt | sed 's|_R1_001.fastq.gz||g' > samples.txt
+mv samples.txt ~/sr-rnaseq/scripts/.
 cd ~/sr-rnaseq/scripts
 ```
 
-**Modify the staging folder in the submit fastq.sh file and run the script.**
+**Prepare to run the scripts using `condor_submit`**
+
+Navigate to your `sr-rnaseq/scripts` folder and ensure that the path to the base project (`staging=/staging/netid/projectname`) aligns with the way you organized your folders.
+Change paths as necessary.
 
 ```
+# Perform quality check of reads
 condor_submit fastqc.sub
-```
-
-**Create the sample list**
-
-```
-grep 'R1_001.fastq.gz' reads.txt | sed 's|_R1_001.fastq.gz||g' > samples.txt
-```
-
-**Submit your fastp job**
-```
+# Trim reads
 condor_submit fastp.sub
+# Map reads to reference genome
+condor_submit bowtie2.sub
+# Convert sam to bam format
+condor_submit samtools.sub
 ```
+
