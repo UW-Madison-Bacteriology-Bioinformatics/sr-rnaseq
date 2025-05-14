@@ -13,6 +13,9 @@ To implement this workflow, we consider each sample (R1 and R2) as its own htcon
 If a job takes 3 minutes to run, the 20 jobs can run in ~3 minutes, rather than 20*3= 60 minutes = 1 hour. 
 This substantially reduces the compute time needed to obtain results.
 
+![Screenshot 2025-05-14 at 11 00 25 AM](https://github.com/user-attachments/assets/4f212680-7831-4360-a23c-6189cda9bd94)
+
+
 ## On CHTC
 1. Quality Checking
 2. Trimming
