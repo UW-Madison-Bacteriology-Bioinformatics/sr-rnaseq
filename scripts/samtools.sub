@@ -8,7 +8,7 @@ ref = MRSA_MW2
 #################
 
 
-executable = bowtie2.sh
+executable = samtools.sh
 
 log = logs/samtools_$(sample)_vs_$(ref).log
 error = logs/samtools_$(sample)_vs_$(ref).err
