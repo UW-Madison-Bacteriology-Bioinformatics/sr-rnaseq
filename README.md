@@ -90,8 +90,11 @@ cd ~/sr-rnaseq/scripts
 
 Navigate to your `sr-rnaseq/scripts` folder and ensure that the path to the base project (`staging=/staging/netid/projectname`) aligns with the way you organized your folders.
 Change paths as necessary.
+Create a log folder first:
+
 
 ```
+mkdir logs
 # Perform quality check of reads
 condor_submit fastqc.sub
 # Trim reads
