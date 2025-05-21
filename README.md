@@ -79,8 +79,9 @@ Create a list of reads:
 cd /staging/$LOGNAME/$PROJECTNAME/input
 # this mean list the files, then replace everything before the space with nothin, and then replace the _R1/2_fastq.gz part of the name with nothing.
 ls -lht | grep '.fastq.gz' | sed 's|.* ||g' > reads.txt
-mv reads.txt ~/sr-rnaseq/scripts/.
 grep 'R1_001.fastq.gz' reads.txt | sed 's|_R1_001.fastq.gz||g' > samples.txt
+# Move both to the scripts folder
+mv reads.txt ~/sr-rnaseq/scripts/.
 mv samples.txt ~/sr-rnaseq/scripts/.
 cd ~/sr-rnaseq/scripts
 ```
