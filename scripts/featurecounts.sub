@@ -1,0 +1,26 @@
+#container_image = docker://biocontainers/htseq:v0.11.2-1-deb-py3_cv1
+
+container_image = docker://biocontainers/subread:v1.6.3dfsg-1-deb_cv1
+arguments = $(sample) $(ref) $(request_cpus)
+
+## CHANGE THIS ##
+staging = /staging/ptran5/MyProject
+
+executable = featurecounts.sh
+
+log = logs/featurecounts_$(sample)_vs_$(ref).log
+error = logs/featurecounts_$(sample)_vs_$(ref).err
+output = logs/featurecounts_$(sample)_vs_$(ref).out
+
+transfer_input_files = /$(staging)/output/bowtie2/$(sample)_vs_$(ref).sorted.bam, file://$(staging)/input/$(ref).gff3
+transfer_output_files = $(sample)_vs_$(ref).out
+transfer_output_remaps = "$(sample)_vs_$(ref).out=file://$(staging)/output/featureCount/$(sample)_vs_$(ref).out"
+
+requirements = (HasCHTCStaging == true)
+
+request_cpus = 8
+request_memory = 32GB
+request_disk = 100GB      
+
+queue sample from samples.txt
+

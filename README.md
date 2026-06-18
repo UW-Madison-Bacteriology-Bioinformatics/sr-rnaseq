@@ -13,6 +13,9 @@ To implement this workflow, we consider each sample (R1 and R2) as its own htcon
 If a job takes 3 minutes to run, the 20 jobs can run in ~3 minutes, rather than 20*3= 60 minutes = 1 hour. 
 This substantially reduces the compute time needed to obtain results.
 
+![Screenshot 2025-05-14 at 11 00 25 AM](https://github.com/user-attachments/assets/4f212680-7831-4360-a23c-6189cda9bd94)
+
+
 ## On CHTC
 1. Quality Checking
 2. Trimming
@@ -42,10 +45,17 @@ chmod +x scripts/*.sh
 ```
 
 **2. Create the folder structure**
-A helper scrip is present to help you organize your input and output files
+A helper script, `pre-processing.sh` is present to help you organize your input and output files.
 
->![WARNING]
-> You must already have a CHTC `/staging` folder.
+Modify the variable `LOCATION` and `PROJECT` accordingly:
+```
+nano scripts/pre-processing.sh
+# change the variables
+# save and exit
+```
+
+> [!NOTE]  
+> You must already have a CHTC `/staging` folder for this to work.
 
 ```
 bash scripts/pre-processing.sh
@@ -53,8 +63,10 @@ bash scripts/pre-processing.sh
 
 **3. Organize your files**
 
-Move your fastq reads (2 for each samples, labelled sample_R{1 or 2}_001.fastq.gz
-Also move your reference genome assembly (named reference_assembly.fasta) here.
+Using Globus, or `scp` transfer the relevant input files to your `/staging/username/project/input` folder.
+You will need:
+ - Move your fastq reads (2 for each samples, labelled sample_R{1 or 2}_001.fastq.gz
+ - Also move your reference genome assembly (named reference_assembly.fasta and gbk files) here
 
 **4. Prepare your list of reads, and your list of samples**
 You will need 2 files overall for the `queue` statement of these scripts.

@@ -1,15 +1,13 @@
 #!/bin/bash
 PROJECT="MyProject"
+LOCATION="/n/netid"
 
-# This becomes $staging variable in submit files:
-# mkdir -p /staging/$LOGNAME/$PROJECT/
+mkdir -p /staging/$LOCATION/$PROJECT/
+mkdir -p /staging/$LOCATION/$PROJECT/input
+mkdir -p /staging/$LOCATION/$PROJECT/output
+mkdir -p /staging/$LOCATION/$PROJECT/output/fastqc
+mkdir -p /staging/$LOCATION/$PROJECT/output/fastp
+mkdir -p /staging/$LOCATION/$PROJECT/output/bowtie2
+mkdir -p /staging/$LOCATION/$PROJECT/output/featureCount
 
-mkdir -p /staging/$LOGNAME/$PROJECT/
-mkdir -p /staging/$LOGNAME/$PROJECT/input
-mkdir -p /staging/$LOGNAME/$PROJECT/output
-mkdir -p /staging/$LOGNAME/$PROJECT/output/fastqc
-mkdir -p /staging/$LOGNAME/$PROJECT/output/fastp
-mkdir -p /staging/$LOGNAME/$PROJECT/output/bowtie2
-mkdir -p /staging/$LOGNAME/$PROJECT/output/featureCount
-
-tree /staging/$LOGNAME/$PROJECT/
+tree /staging/$LOCATION/$PROJECT/
