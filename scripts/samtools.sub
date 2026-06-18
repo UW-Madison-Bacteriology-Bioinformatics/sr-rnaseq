@@ -16,7 +16,7 @@ output = logs/samtools_$(sample)_vs_$(ref).out
 
 transfer_input_files = file://$(staging)/output/bowtie2/$(sample)_vs_$(ref).sam
 transfer_output_files = $(sample)_vs_$(ref).sorted.bam
-transfer_output_remaps = "$(sample)_vs_$(ref).sorted.bam=file://$(staging)/bowtie2/$(sample)_vs_$(ref).sorted.bam"
+transfer_output_remaps = "$(sample)_vs_$(ref).sorted.bam=file://$(staging)/output/bowtie2/$(sample)_vs_$(ref).sorted.bam"
 
 requirements = (HasCHTCStaging == true)
 
