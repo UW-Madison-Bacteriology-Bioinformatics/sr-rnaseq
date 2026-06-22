@@ -13,8 +13,8 @@ error = logs/featurecounts_$(sample)_vs_$(ref).err
 output = logs/featurecounts_$(sample)_vs_$(ref).out
 
 transfer_input_files = /$(staging)/output/bowtie2/$(sample)_vs_$(ref).sorted.bam, file://$(staging)/input/$(ref).gff3
-transfer_output_files = $(sample)_vs_$(ref).out
-transfer_output_remaps = "$(sample)_vs_$(ref).out=file://$(staging)/output/featureCount/$(sample)_vs_$(ref).out"
+transfer_output_files = $(sample)_vs_$(ref)_counts.txt
+transfer_output_remaps = "$(sample)_vs_$(ref)_counts.txt=file://$(staging)/output/featureCount/$(sample)_vs_$(ref)_counts.txt"
 
 requirements = (HasCHTCStaging == true)
 
