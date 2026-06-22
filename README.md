@@ -103,5 +103,11 @@ condor_submit fastp.sub
 condor_submit bowtie2.sub
 # Convert sam to bam format
 condor_submit samtools.sub
+# Calculate the number of reads mapped to certain features
+condor_submit featurescount.sub
 ```
+
+Note: the featurescounts.sub file take in a GFF3 file as an input. If you have a GTF or Genbank file, you can search for how to convert that into a GFF3 File. Additionally, make sure that the feature you are interested in is labelled properly in the "table" section of the GFF3 file. For example, if you manually annotated a region, it might be labelled as "region" instead of "gene", so you might need to manually edit the GFF3 file.
+
+
 
