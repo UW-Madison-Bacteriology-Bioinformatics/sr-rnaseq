@@ -5,7 +5,7 @@ arguments = $(sample) $(ref) $(request_cpus)
 
 ## CHANGE THIS ##
 staging = /staging/ptran5/MyProject
-
+ref = my_reference.fa
 executable = featurecounts.sh
 
 log = logs/featurecounts_$(sample)_vs_$(ref).log
