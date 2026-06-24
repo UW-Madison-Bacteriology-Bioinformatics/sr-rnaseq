@@ -103,6 +103,8 @@ condor_submit fastp.sub
 condor_submit bowtie2.sub
 # Convert sam to bam format
 condor_submit samtools.sub
+# Convert GFF to GTF
+condor_submit GFF2GTF.sub
 # Calculate the number of reads mapped to certain features
 condor_submit featurescount.sub
 ```
