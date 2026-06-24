@@ -1,6 +1,6 @@
 #!/bin/bash
-PROJECT="MyProject"
-LOCATION="/n/netid"
+PROJECT="rnaseq"
+LOCATION="/p/ptran5"
 
 mkdir -p /staging/$LOCATION/$PROJECT/
 mkdir -p /staging/$LOCATION/$PROJECT/input

@@ -7,7 +7,7 @@ CPU="$3"
 ls -lht
 
 # Building reference
-bowtie2-build ${REF}_assembly.fasta ${REF}
+bowtie2-build ${REF} ${REF}
 ls -lht
 
 # Map reads to the reference

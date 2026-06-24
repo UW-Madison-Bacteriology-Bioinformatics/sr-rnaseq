@@ -4,7 +4,7 @@ container_image = docker://biocontainers/subread:v1.6.3dfsg-1-deb_cv1
 arguments = $(sample) $(ref) $(request_cpus)
 
 ## CHANGE THIS ##
-staging = /staging/ptran5/MyProject
+staging = /staging/p/ptran5/rnaseq
 ref = my_reference
 # Don't use any file extension for the reference please.
 executable = featurecounts.sh
