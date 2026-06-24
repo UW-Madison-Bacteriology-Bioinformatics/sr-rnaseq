@@ -5,7 +5,7 @@ arguments = $(sample) $(ref) $(request_cpus)
 
 ## CHANGE THIS ##
 staging = /staging/p/ptran5/rnaseq
-ref = my_reference
+ref = RN4220withTarget
 # Don't use any file extension for the reference please.
 executable = featurecounts.sh
 
@@ -13,9 +13,9 @@ log = logs/featurecounts_$(sample)_vs_$(ref).log
 error = logs/featurecounts_$(sample)_vs_$(ref).err
 output = logs/featurecounts_$(sample)_vs_$(ref).out
 
-transfer_input_files = /$(staging)/output/bowtie2/$(sample)_vs_$(ref).sorted.bam, file://$(staging)/input/$(ref).gtf
-transfer_output_files = $(sample)_vs_$(ref)_counts.txt
-transfer_output_remaps = "$(sample)_vs_$(ref)_counts.txt=file://$(staging)/output/featureCount/$(sample)_vs_$(ref)_counts.txt"
+transfer_input_files = file://$(staging)/output/bowtie2/$(sample)_vs_$(ref).fasta.sorted.bam, file://$(staging)/input/$(ref).gtf
+transfer_output_files = $(sample)_vs_$(ref)_counts.txt, $(sample)_vs_$(ref)_counts.txt.summary
+transfer_output_remaps = "$(sample)_vs_$(ref)_counts.txt=file://$(staging)/output/featureCount/$(sample)_vs_$(ref)_counts.txt;$(sample)_vs_$(ref)_counts.txt.summary=file://$(staging)/output/featureCount/$(sample)_vs_$(ref)_counts.txt.summary"
 
 requirements = (HasCHTCStaging == true)
 

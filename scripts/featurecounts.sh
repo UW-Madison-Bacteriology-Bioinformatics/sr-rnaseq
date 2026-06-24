@@ -8,9 +8,9 @@ ls -lht
 
 
 featureCounts -T ${CPU} -t gene \
-    -g gene \
+    -g Name \
     -a ${REF}.gtf \
     -o ${SAMPLE}_vs_${REF}_counts.txt \
-    ${SAMPLE}_vs_${REF}.sorted.bam
+    ${SAMPLE}_vs_${REF}.fasta.sorted.bam
 
 ls -lht
