@@ -1,0 +1,24 @@
+container_image = docker://quay.io/biocontainers/agat:1.4.2--pl5321hdfd78af_0
+
+## CHANGE THIS ##
+staging = /staging/ptran5/MyProject
+ref = name
+# no file extension please
+
+arguments = $(ref)
+
+log = logs/gff2gtf_$(ref).log
+error = logs/gff2gtf_$(ref).err
+output = logs/gff2gtf_$(ref).out
+
+transfer_input_files = file://$(staging)/input/$(name).gff
+transfer_output_files = $(name).gtf
+transfer_output_remaps = "(name).gtf=file://$(staging)/input/$(name).gtf"
+
+requirements = (HasCHTCStaging == true)
+
+request_cpus = 8
+request_memory = 16GB
+request_disk = 30GB      
+
+queue
