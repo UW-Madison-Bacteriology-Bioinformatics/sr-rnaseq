@@ -13,9 +13,9 @@ log = logs/gff2gtf_$(ref).log
 error = logs/gff2gtf_$(ref).err
 output = logs/gff2gtf_$(ref).out
 
-transfer_input_files = file://$(staging)/input/$(name).gff
-transfer_output_files = $(name).gtf
-transfer_output_remaps = "(name).gtf=file://$(staging)/input/$(name).gtf"
+transfer_input_files = file://$(staging)/input/$(ref).gff
+transfer_output_files = $(ref).gtf
+transfer_output_remaps = "(ref).gtf=file://$(staging)/input/$(ref).gtf"
 
 requirements = (HasCHTCStaging == true)
 
