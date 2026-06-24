@@ -5,14 +5,15 @@ arguments = $(sample) $(ref) $(request_cpus)
 
 ## CHANGE THIS ##
 staging = /staging/ptran5/MyProject
-ref = my_reference.fa
+ref = my_reference
+# Don't use any file extension for the reference please.
 executable = featurecounts.sh
 
 log = logs/featurecounts_$(sample)_vs_$(ref).log
 error = logs/featurecounts_$(sample)_vs_$(ref).err
 output = logs/featurecounts_$(sample)_vs_$(ref).out
 
-transfer_input_files = /$(staging)/output/bowtie2/$(sample)_vs_$(ref).sorted.bam, file://$(staging)/input/$(ref).gff3
+transfer_input_files = /$(staging)/output/bowtie2/$(sample)_vs_$(ref).sorted.bam, file://$(staging)/input/$(ref).gtf
 transfer_output_files = $(sample)_vs_$(ref)_counts.txt
 transfer_output_remaps = "$(sample)_vs_$(ref)_counts.txt=file://$(staging)/output/featureCount/$(sample)_vs_$(ref)_counts.txt"
 
