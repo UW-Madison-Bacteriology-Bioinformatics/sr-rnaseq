@@ -5,15 +5,17 @@ Example data processing of short reads rna-seq
 
 # ✨ Overview
 
-The purpose of this workflow is to process short read bulk RNA-seq data in a high-throughput manner. The workflow consists of standard QC/QA pre-processing steps, after which cleaned RNA-seq reads are mapped onto a reference genome. Then counts for each genes are calculated.
+The purpose of this workflow is to process short read bulk RNA-seq data in a high-throughput manner. The workflow consists of standard QC/QA pre-processing steps, after which cleaned RNA-seq reads are mapped onto a reference genome. Then, counts for each genes are calculated.
 
 # 🖥️  Infrastructure
 
-To implement this workflow, we consider each sample (made up of R1 and R2) as its own htcondor job. For example, with 10 samples (20 fastqc reads), we would simultaneously submit 10 jobs or 20 jobs, depending on the step in the workflow.
-If a job takes 3 minutes to run, the 20 jobs can run in ~3 minutes, rather than 20*3= 60 minutes = 1 hour. 
-This substantially reduces the compute time needed to obtain results.
+To implement this workflow, a preannotated genome and pairs of R1 and R2 reads for each sample. For the QA and QC step, each reads file is its own HTCondor job. For the mapping, paired-reads are considered for each HTCondor job.
 
-![Screenshot 2025-05-14 at 11 00 25 AM](https://github.com/user-attachments/assets/4f212680-7831-4360-a23c-6189cda9bd94)
+For example, with 40 samples (80 fastqc reads), we would simultaneously submit 80 jobs for the fastqc and fastp steps, and 40 jobs for steps starting at mapping. 
+
+One of the longer step of such as workflow is the mapping step, when reads are mapped to the reference genome. If each time a pair of reads is mapped to the genome takes 10 minutes to run, it would take 40 samples X 10 mins = 400 mins > 6 hour for all 40 samples to run. Comparatively, using High Throughput Computing, the tasks are submitted and run "almost all at the same time" which substantially reduces the compute time needed to obtain results. In the best case scenario, it could only take ~10 minutes to run all 40 samples at once.
+
+![Workflow](./workflow.png)
 
 ## On CHTC
 1. Quality Checking
