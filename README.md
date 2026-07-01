@@ -9,12 +9,11 @@ The purpose of this workflow is to process short read bulk RNA-seq data in a hig
 
 # 🖥️  Infrastructure
 
-To implement this workflow, we consider each sample (R1 and R2) as its own htcondor job. For example, with 10 samples (20 fastqc reads), we would simultaneously submit 10 jobs or 20 jobs, depending on the step in the workflow.
+To implement this workflow, we consider each sample (made up of R1 and R2) as its own htcondor job. For example, with 10 samples (20 fastqc reads), we would simultaneously submit 10 jobs or 20 jobs, depending on the step in the workflow.
 If a job takes 3 minutes to run, the 20 jobs can run in ~3 minutes, rather than 20*3= 60 minutes = 1 hour. 
 This substantially reduces the compute time needed to obtain results.
 
 ![Screenshot 2025-05-14 at 11 00 25 AM](https://github.com/user-attachments/assets/4f212680-7831-4360-a23c-6189cda9bd94)
-
 
 ## On CHTC
 1. Quality Checking
@@ -26,12 +25,7 @@ This substantially reduces the compute time needed to obtain results.
 1. Merge output tables
 2. Perform differential gene expression analysis
 
-# ⚠️ Special consideration
-
-Specific to this RNA-seq analysis, if we eventually want to compared 2 groups (control vs treated, time 1 vs time 2, etc), we must have at least 3 replicates for each group.
-If you have fewer than 3 replicates, you can still process the data up to the point to obtain a gene count table, however, the data will not be appropriate to use with statistical analyses.
-
-# 🔁 Recreate this workflow
+# 🔁 How to recreate this workflow
 
 **1. Download a copy of the code**
 
@@ -103,13 +97,18 @@ condor_submit fastp.sub
 condor_submit bowtie2.sub
 # Convert sam to bam format
 condor_submit samtools.sub
+```
+
+Note: The `featurescounts.sub` file take in a GTF file as an input. If you have a GFF3 file, you can search for how to convert that into a GTF File, using the script `GFF2GTF.sub` from the `AGAT` software. Prior to running the `GFF2GTF.sub` script, make sure that the feature you are interested in is labelled properly in the "table" section of the GFF3 file. For more information about the GFF3 file format, visit this [website](https://www.ncbi.nlm.nih.gov/datasets/docs/v2/reference-docs/file-formats/annotation-files/about-ncbi-gff3/)
+For example, if you manually annotated a region using an external software, the column `type` might be label it as "region" or "misc_feature", instead of "gene", so you will want to manually edit the GFF3 file. 
+
+```
 # Convert GFF to GTF
 condor_submit GFF2GTF.sub
 # Calculate the number of reads mapped to certain features
 condor_submit featurescount.sub
 ```
 
-Note: the featurescounts.sub file take in a GFF3 file as an input. If you have a GTF or Genbank file, you can search for how to convert that into a GFF3 File. Additionally, make sure that the feature you are interested in is labelled properly in the "table" section of the GFF3 file. For example, if you manually annotated a region, it might be labelled as "region" instead of "gene", so you might need to manually edit the GFF3 file.
 
 
 
